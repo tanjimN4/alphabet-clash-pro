@@ -14,9 +14,28 @@ function handleKeyboardButtonPress(event){
     
 
     if(playerPress===expectedAlphabet){
+
+        const currentScoreElement =document.getElementById('current-score')
+        const currentScoreText=currentScoreElement.innerText
+        const currentScore =parseInt(currentScoreText)
+
+        const newScore = currentScore +1;
+
+        currentScoreElement.innerText=newScore;
         
         removeBackGroundColor(expectedAlphabet)
         continuGame()
+
+    }else{
+        const currentLifeElement =document.getElementById('current-life')
+        const currentLifeText =currentLifeElement.innerText
+        const currentLife =parseInt(currentLifeText)
+        const newLife =currentLife-1
+
+        currentLifeElement.innerText =newLife;
+        if(newLife === 0){
+            gameOver()
+        }
     }
 }
 document.addEventListener('keyup',handleKeyboardButtonPress )
@@ -32,7 +51,20 @@ function continuGame(){
 
 function play(){
     hideElementById('home')
+    hideElementById('score ')
     showElementById('play-ground')
+
+    setTextElementValueById('current-life',5)
+    setTextElementValueById('current-score',0)
+
     continuGame()
+}
+
+function gameOver(){
+    hideElementById('play-ground')
+    showElementById('score ')
+
+    const lastScore =getTextElementValueById('current-score')
+    setTextElementValueById('game-score' ,lastScore)
 }
 
